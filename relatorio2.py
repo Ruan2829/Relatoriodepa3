@@ -79,8 +79,9 @@ st.markdown(
 class PDF(FPDF):
     def header(self):
         # Verifica se o arquivo da logo existe e insere a imagem no canto superior esquerdo (x=10, y=10, largura=30mm)
-        if os.path.exists("logo_iqony.png"):
+        if os.path.exists("assets/logo_iqony.png"):
             self.image("assets/logo_iqony.png", x=15, y=15, w=25)
+
 
 
         # Define a posição e fonte do título central do relatório
@@ -93,8 +94,9 @@ class PDF(FPDF):
 # ------------------------------------ Rodapé do PDF Com imagem -------------------------------------
     def footer(self):
         # Adiciona imagem no canto inferior esquerdo
-        if os.path.exists("wind_turbine_draw.png"):
+        if os.path.exists("assets/wind_turbine_draw.png"):
             self.image("assets/wind_turbine_draw.png", x=10, y=260, w=40)
+
   # Ajuste 'x', 'y' e 'w' conforme o necessário
 
         # Texto do rodapé
@@ -215,8 +217,9 @@ class PDF(FPDF):
         self.add_page()
         self.set_font("Arial", "B", 12)
         self.cell(0, 10, "5. Nomenclaturas", ln=True)
-        if os.path.exists("nomenclaturas.png"):
+        if os.path.exists("assets/nomenclaturas.png"):
             self.image("assets/nomenclaturas.png", x=10, w=190)
+
 
         else:
             self.set_font("Arial", "I", 11)
