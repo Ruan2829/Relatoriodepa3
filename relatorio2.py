@@ -7,25 +7,29 @@ import base64 # Biblioteca para codificação e decodificação de dados binári
 from io import BytesIO # Biblioteca para manipulação de fluxos de bytes
 import requests
 
-# Caminho base do seu repositório (diretório 'raw' para baixar direto)
-base_url = "https://raw.githubusercontent.com/Ruan2829/Relatoriodepa3/main/assets/"
+# -------------------- Baixar imagens do GitHub (se não existirem localmente) --------------------
 
-# Lista de imagens que devem ser baixadas
-imagens_para_baixar = ["logo_iqony.png", "nomenclaturas.png", "wind_turbine_draw.png"]
+# Dicionário com os caminhos locais e URLs das imagens no GitHub
+IMAGENS = {
+    "assets/logo_iqony.png": "https://raw.githubusercontent.com/Ruan2829/Relatoriodepa3/main/assets/logo_iqony.png",
+    "assets/nomenclaturas.png": "https://raw.githubusercontent.com/Ruan2829/Relatoriodepa3/main/assets/nomenclaturas.png",
+    "assets/wind_turbine_draw.png": "https://raw.githubusercontent.com/Ruan2829/Relatoriodepa3/main/assets/wind_turbine_draw.png",
+}
 
-# Cria a pasta assets local se não existir
-if not os.path.exists("assets"):
-    os.makedirs("assets")
+# Cria a pasta 'assets' local se ainda não existir
+os.makedirs("assets", exist_ok=True)
 
-# Baixa as imagens e salva localmente
-for nome_arquivo in imagens_para_baixar:
-    url = base_url + nome_arquivo
-    caminho_local = os.path.join("assets", nome_arquivo)
-    if not os.path.exists(caminho_local):  # Só baixa se não existir ainda
-        resposta = requests.get(url)
-        if resposta.status_code == 200:
-            with open(caminho_local, "wb") as f:
-                f.write(resposta.content)
+# Faz o download das imagens apenas se ainda não estiverem salvas localmente
+for caminho_local, url_github in IMAGENS.items():
+    if not os.path.exists(caminho_local):
+        try:
+            response = requests.get(url_github)
+            if response.status_code == 200:
+                with open(caminho_local, "wb") as f:
+                    f.write(response.content)
+        except Exception as e:
+            print(f"Erro ao baixar {url_github}: {e}")
+
 
 
 # Configuração da página Streamlit
