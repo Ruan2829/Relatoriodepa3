@@ -132,9 +132,9 @@ class PDF(FPDF):
         self.set_font("Arial", "B", 10)
         linhas = [
             ["Elaborado por:", "Ruan Lopes da Silva", "12/04/2025"],
-            ["Revisado por:", revisado_por_1, data_revisao],
+            ["Revisado por:", "Thiago Abner ", "06/05/2025"],
             ["Revisado por:", revisado_por_2, data_revisao],
-            ["Aprovado por:", "Vinícius Pazzini", "28/04/2025"]
+            ["Aprovado por:", "Vinícius Pazzini", "10/05/2025"]
         ]
         for linha in linhas:
             self.cell(45, 10, linha[0], 1)
