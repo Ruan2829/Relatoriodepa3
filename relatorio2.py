@@ -5,6 +5,28 @@ import os  # Biblioteca para manipulação de arquivos
 from PIL import Image   # Biblioteca para manipulação de imagens
 import base64 # Biblioteca para codificação e decodificação de dados binários
 from io import BytesIO # Biblioteca para manipulação de fluxos de bytes
+import requests
+
+# Caminho base do seu repositório (diretório 'raw' para baixar direto)
+base_url = "https://raw.githubusercontent.com/Ruan2829/Relatoriodepa3/main/assets/"
+
+# Lista de imagens que devem ser baixadas
+imagens_para_baixar = ["logo_iqony.png", "nomenclaturas.png", "wind_turbine_draw.png"]
+
+# Cria a pasta assets local se não existir
+if not os.path.exists("assets"):
+    os.makedirs("assets")
+
+# Baixa as imagens e salva localmente
+for nome_arquivo in imagens_para_baixar:
+    url = base_url + nome_arquivo
+    caminho_local = os.path.join("assets", nome_arquivo)
+    if not os.path.exists(caminho_local):  # Só baixa se não existir ainda
+        resposta = requests.get(url)
+        if resposta.status_code == 200:
+            with open(caminho_local, "wb") as f:
+                f.write(resposta.content)
+
 
 # Configuração da página Streamlit
 st.set_page_config(page_title="Relatório de Inspeção", layout="centered")  # Título e layout da página
