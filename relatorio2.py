@@ -883,28 +883,34 @@ topicos_interna = [
 def bloco_inspecao_interna(pa_num):
     st.subheader(f"📷 11.3 Itens com evidências fotográficas - PÁ {pa_num}")
     imagens_obs = {}
+
     topicos_selecionados = st.multiselect(
         f"Selecione os tópicos com problemas (PÁ {pa_num} - interna):",
-        topicos_interna, key=f"topicos_interna_pa{pa_num}"
+        topicos_interna, 
+        key=limpar_key(f"topicos_interna_pa{pa_num}")
     )
+
     for topico in topicos_selecionados:
         st.markdown(f"### 📸 {topico} (PÁ {pa_num})")
 
+        key_foto = limpar_key(f"fotos_interna_pa{pa_num}_{topico}")
         fotos = st.file_uploader(
             f"Envie até 2 fotos para '{topico}' (PÁ {pa_num})",
             type=["jpg", "jpeg", "png"],
             accept_multiple_files=True,
-            key=limpar_key(f"fotos_interna_pa{pa_num}_{topico}")
+            key=key_foto
         )
 
+        key_obs = limpar_key(f"obs_interna_pa{pa_num}_{topico}")
         obs = st.text_area(
             f"Observações sobre '{topico}' (PÁ {pa_num})",
-            key=limpar_key(f"obs_interna_pa{pa_num}_{topico}")
+            key=key_obs
         )
 
         imagens_obs[topico] = (fotos, obs)
 
     return imagens_obs
+
 
 
 #------------------------ Inspeção Interna - PÁ 1 ----------------------------
