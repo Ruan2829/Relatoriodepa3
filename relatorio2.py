@@ -832,7 +832,7 @@ for topico in topicos_selecionados_pa3:
     key_foto = limpar_key(f"fotos_externa_pa3_{topico}")
     fotos = st.file_uploader(
         f"Envie até 2 fotos para '{topico}' (PÁ 3)", 
-        type=["jpg", "jpeg", "png", "JPG", "JPEG", "PNG"], 
+        type=EXTENSOES_SUPORTADAS, 
         accept_multiple_files=True, 
         key=key_foto
     )
@@ -903,7 +903,7 @@ def bloco_inspecao_interna(pa_num):
         key_foto = limpar_key(f"fotos_interna_pa{pa_num}_{topico}")
         fotos = st.file_uploader(
             f"Envie até 2 fotos para '{topico}' (PÁ {pa_num})",
-            type=["jpg", "jpeg", "png", "JPG", "JPEG", "PNG"],
+            type=EXTENSOES_SUPORTADAS,
             accept_multiple_files=True,
             key=key_foto
         )
