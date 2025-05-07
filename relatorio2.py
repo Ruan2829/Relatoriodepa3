@@ -600,7 +600,7 @@ dispositivos_luz = st.text_input("Dispositivos de iluminação:")
 
 #-------------------------------------- Inputs Nomenclaturas -------------------------------------
 # 📸 SEÇÃO 8 – IDENTIFICAÇÃO DA MÁQUINA
-EXTENSOES_SUPORTADAS = ["jpg", "jpeg", "png", "JPG", "JPEG", "PNG"]
+
 
 st.subheader("📸 8. Identificação da Máquina")
 with st.container():
@@ -608,16 +608,17 @@ with st.container():
 
     imagem_maquina = st.file_uploader(
         "Selecione a imagem (PNG ou JPG)",
-        type=EXTENSOES_SUPORTADAS
     )
 
     imagem_maquina_path = None
     if imagem_maquina:
-        extensao = imagem_maquina.type.split("/")[-1]
+        extensao = imagem_maquina.name.split(".")[-1].lower()  # 🔄 Usa o nome do arquivo e converte para minúsculo
         imagem_maquina_path = f"imagem_maquina.{extensao}"
+
 
         with open(imagem_maquina_path, "wb") as f:
             f.write(imagem_maquina.read())
+
 
 
         # Mostra imagem carregada abaixo
@@ -632,7 +633,6 @@ for i in range(1, 4):
         st.markdown(f"### 📌 PÁ {i}")
         fotos = st.file_uploader(
             f"Envie até 2 fotos para PÁ {i}",
-            type=EXTENSOES_SUPORTADAS,
             accept_multiple_files=True,
             key=f"fotos_pa_{i}"
         )
@@ -773,7 +773,7 @@ for topico in topicos_selecionados_pa1:
     key_foto = limpar_key(f"fotos_externa_pa1_{topico}")
     fotos = st.file_uploader(
         f"Envie até 2 fotos para '{topico}' (PÁ {n})",
-        type=EXTENSOES_SUPORTADAS,
+
         accept_multiple_files=True,
         key=key_foto
     )
@@ -803,7 +803,7 @@ for topico in topicos_selecionados_pa2:
     key_foto = limpar_key(f"fotos_externa_pa2_{topico}")
     fotos = st.file_uploader(
         f"Envie até 2 fotos para '{topico}' (PÁ {pa_num})",
-        type=EXTENSOES_SUPORTADAS,
+  
         accept_multiple_files=True,
         key=key_foto
     )
@@ -832,7 +832,7 @@ for topico in topicos_selecionados_pa3:
     key_foto = limpar_key(f"fotos_externa_pa3_{topico}")
     fotos = st.file_uploader(
         f"Envie até 2 fotos para '{topico}' (PÁ 3)", 
-        type=EXTENSOES_SUPORTADAS, 
+         
         accept_multiple_files=True, 
         key=key_foto
     )
@@ -903,7 +903,7 @@ def bloco_inspecao_interna(pa_num):
         key_foto = limpar_key(f"fotos_interna_pa{pa_num}_{topico}")
         fotos = st.file_uploader(
             f"Envie até 2 fotos para '{topico}' (PÁ {pa_num})",
-            type=EXTENSOES_SUPORTADAS,
+        
             accept_multiple_files=True,
             key=key_foto
         )
