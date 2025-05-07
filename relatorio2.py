@@ -25,7 +25,7 @@ IMAGENS = {
     "assets/wind_turbine_draw.png": "https://raw.githubusercontent.com/Ruan2829/Relatoriodepa3/main/assets/wind_turbine_draw.png",
 }
 
-# Cria a pasta 'assets' local se ainda não existir
+#----------------- Cria a pasta 'assets' local se ainda não existir -------------------------
 os.makedirs("assets", exist_ok=True)
 
 # Faz o download das imagens apenas se ainda não estiverem salvas localmente
@@ -41,7 +41,7 @@ for caminho_local, url_github in IMAGENS.items():
 
 
 
-# Configuração da página Streamlit
+# -------------------------- Configuração da página Streamlit----------------------------------
 st.set_page_config(page_title="Relatório de Inspeção", layout="centered")  # Título e layout da página
 st.title("📄 Relatório de Inspeção de Pás")  # Título principal
 
@@ -84,7 +84,7 @@ st.markdown(
 )
 
 
-# Classe PDF personalizada
+# ------------------------Classe PDF personalizada---------------------------
 class PDF(FPDF):
     def header(self):
         # Verifica se o arquivo da logo existe e insere a imagem no canto superior esquerdo (x=10, y=10, largura=30mm)
@@ -123,7 +123,7 @@ class PDF(FPDF):
         self.set_y(-10)  # Ajusta posição
         self.cell(0, 10, f"Página {self.page_no()} de {{nb}}", align="R") # adiciona um rodapé ao documento, mostrando o número da página atual e o total de páginas, como por exemplo: "Página 3 de 10"
 
-# ------------------------------------------- Área Departamento Responsável --------------------------
+# -----------------------------------Área Departamento Responsável --------------------------
 
     def primeira_pagina(self, ambito_aplicacao, codigo_relatorio, revisado_por_1, revisado_por_2, data_revisao):
         self.set_font("Arial", "B", 12)
@@ -228,12 +228,9 @@ class PDF(FPDF):
         self.cell(0, 10, "5. Nomenclaturas", ln=True)
         if os.path.exists("assets/nomenclaturas.png"):
             self.image("assets/nomenclaturas.png", x=10, w=190)
-
-
         else:
             self.set_font("Arial", "I", 11)
             self.multi_cell(0, 10, "Imagem de nomenclaturas não encontrada.")
-
 
 
   # -------------- 6. Itens das Pás a Serem Inspecionados -----------------------------
@@ -243,7 +240,6 @@ class PDF(FPDF):
         self.set_font("Arial", "B", 12)
         self.cell(0, 10, "6. Itens das Pás a Serem Inspecionados", ln=True)
 
-        
         itens = [
             ("Extradorso", "E.D."),
             ("Intradorso", "I.D"),
@@ -275,13 +271,11 @@ class PDF(FPDF):
             ("4", "Danos Críticos", "Parar o aerogerador")
         ]
 
-    
         for ref, desc, acao in referencias:
             self.set_font("Arial", "", 11)
             self.cell(20, 10, ref, border=1, align="C")
             self.cell(70, 10, desc, border=1, align="C")
             self.cell(100, 10, acao, border=1, ln=True, align="C")
-
 
 
  #-------------- 8. Identificação da Máquina ----------------------------------------------------------
@@ -342,7 +336,7 @@ class PDF(FPDF):
 
     #----------------------- 10. Expeção externa e 10.1 Classificação de Defeitos Pa1, Pa2 e Pa3 -------------------
 
-    
+
     def pagina_inspecao_externa(self, numero_pa, tabela): 
         self.add_page()
 
@@ -615,16 +609,13 @@ with st.container():
         extensao = imagem_maquina.name.split(".")[-1].lower()  # 🔄 Usa o nome do arquivo e converte para minúsculo
         imagem_maquina_path = f"imagem_maquina.{extensao}"
 
-
         with open(imagem_maquina_path, "wb") as f:
             f.write(imagem_maquina.read())
-
-
 
         # Mostra imagem carregada abaixo
         #st.image(imagem_maquina, caption="Imagem carregada", use_column_width=True)
 
-
+# -------------------------- Especificação e identificação das pás ---------------------------------------------------------
 st.subheader("📷 9. Especificação e Identificação das Pás")
 
 imagens_pás = {}
@@ -647,10 +638,6 @@ for i in range(1, 4):
             caminhos.append(caminho)
 
         imagens_pás[f"PÁ {i}"] = caminhos
-
-
-
-    
 
 
 # ------------------------ Inputs Inspeção Externa -------------------------------------
@@ -689,6 +676,7 @@ for loc in localizacoes:
 
 st.markdown("---") # Linha de separação
 
+# ------------------------------ pá 2 exterma --------------------------------------------
 st.subheader("🔍 10.2 Inspeção Externa - Classificação de Defeitos (PÁ 2)")
 
 tabela_externa_pa2 = []
@@ -714,7 +702,7 @@ for loc in localizacoes:
         "Código": cod_cor
     })
 
-
+#---------------------------------------- pá 3 -------------------------------------------
 st.subheader("🔍 10.3 Inspeção Externa - Classificação de Defeitos (PÁ 3)")
 
 tabela_externa_pa3 = []
@@ -785,7 +773,7 @@ for topico in topicos_selecionados_pa1:
     imagens_obs_externa_pa1[topico] = (fotos, obs)
 
 
-# --- Inspeção Externa - PÁ 2 ---
+# ------------------------------------ Inspeção Externa - PÁ 2 ---------------------------------
 
 st.subheader("🔍 10.2 Inspeção Externa - PÁ 2")
 
@@ -802,7 +790,7 @@ for topico in topicos_selecionados_pa2:
 
     key_foto = limpar_key(f"fotos_externa_pa2_{topico}")
     fotos = st.file_uploader(
-        f"Envie até 2 fotos para '{topico}' (PÁ {pa_num})",
+        f"Envie até 2 fotos para '{topico}' (PÁ 2)",
   
         accept_multiple_files=True,
         key=key_foto
