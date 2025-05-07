@@ -772,7 +772,7 @@ for topico in topicos_selecionados_pa1:
     
     key_foto = limpar_key(f"fotos_externa_pa1_{topico}")
     fotos = st.file_uploader(
-        f"Envie até 2 fotos para '{topico}' (PÁ {n})",
+        f"Envie até 2 fotos para '{topico}' (PÁ 1)",
 
         accept_multiple_files=True,
         key=key_foto
