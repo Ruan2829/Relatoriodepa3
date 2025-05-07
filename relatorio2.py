@@ -600,41 +600,41 @@ dispositivos_luz = st.text_input("Dispositivos de iluminação:")
 
 #-------------------------------------- Inputs Nomenclaturas -------------------------------------
 # 📸 SEÇÃO 8 – IDENTIFICAÇÃO DA MÁQUINA
-st.subheader("📸 8. Identificação da Máquina")
+EXTENSOES_SUPORTADAS = ["jpg", "jpeg", "png", "JPG", "JPEG", "PNG"]
 
+st.subheader("📸 8. Identificação da Máquina")
 with st.container():
     st.markdown("**📷 Envie uma imagem de identificação do Aerogerador**")
-    
+
     imagem_maquina = st.file_uploader(
-        "Selecione a imagem (PNG ou JPG)", 
-        type=["jpg", "jpeg", "png", "JPG", "JPEG", "PNG"]
-            
+        "Selecione a imagem (PNG ou JPG)",
+        type=EXTENSOES_SUPORTADAS
+    )
 
     imagem_maquina_path = None
     if imagem_maquina:
-        # Detecta a extensão correta a partir do tipo MIME
         extensao = imagem_maquina.type.split("/")[-1]
         imagem_maquina_path = f"imagem_maquina.{extensao}"
 
-        # Salva o arquivo corretamente com a extensão original
         with open(imagem_maquina_path, "wb") as f:
             f.write(imagem_maquina.read())
+
 
         # Mostra imagem carregada abaixo
         #st.image(imagem_maquina, caption="Imagem carregada", use_column_width=True)
 
+
 st.subheader("📷 9. Especificação e Identificação das Pás")
 
 imagens_pás = {}
-
-for i in range(1, 4):  # Loop de 1 a 3 para as pás
-    with st.container():  # Cria um container para cada pá
+for i in range(1, 4):
+    with st.container():
         st.markdown(f"### 📌 PÁ {i}")
         fotos = st.file_uploader(
-            f"Envie até 2 fotos para PÁ {i}",  # ✅ Corrigido: texto fixo com número da pá
-            type=["jpg", "jpeg", "png", "JPG", "JPEG", "PNG"],
+            f"Envie até 2 fotos para PÁ {i}",
+            type=EXTENSOES_SUPORTADAS,
             accept_multiple_files=True,
-            key=f"fotos_pa_{i}"  # Também melhor usar chave estável
+            key=f"fotos_pa_{i}"
         )
 
         caminhos = []
@@ -647,6 +647,7 @@ for i in range(1, 4):  # Loop de 1 a 3 para as pás
             caminhos.append(caminho)
 
         imagens_pás[f"PÁ {i}"] = caminhos
+
 
 
     
@@ -771,11 +772,12 @@ for topico in topicos_selecionados_pa1:
     
     key_foto = limpar_key(f"fotos_externa_pa1_{topico}")
     fotos = st.file_uploader(
-        f"Envie até 2 fotos para '{topico}' (PÁ 1)", 
-        type=["jpg", "jpeg", "png", "JPG", "JPEG", "PNG"], 
-        accept_multiple_files=True, 
+        f"Envie até 2 fotos para '{topico}' (PÁ {n})",
+        type=EXTENSOES_SUPORTADAS,
+        accept_multiple_files=True,
         key=key_foto
     )
+
 
     key_obs = limpar_key(f"obs_externa_pa1_{topico}")
     obs = st.text_area(f"Observações sobre '{topico}' (PÁ 1)", key=key_obs)
@@ -800,11 +802,12 @@ for topico in topicos_selecionados_pa2:
 
     key_foto = limpar_key(f"fotos_externa_pa2_{topico}")
     fotos = st.file_uploader(
-        f"Envie até 2 fotos para '{topico}' (PÁ 2)", 
-        type=["jpg", "jpeg", "png", "JPG", "JPEG", "PNG"], 
-        accept_multiple_files=True, 
+        f"Envie até 2 fotos para '{topico}' (PÁ {pa_num})",
+        type=EXTENSOES_SUPORTADAS,
+        accept_multiple_files=True,
         key=key_foto
     )
+
 
     key_obs = limpar_key(f"obs_externa_pa2_{topico}")
     obs = st.text_area(f"Observações sobre '{topico}' (PÁ 2)", key=key_obs)
