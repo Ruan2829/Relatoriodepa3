@@ -879,6 +879,7 @@ topicos_interna = [
 
 # Bloco dinâmico para fotos e observações por PÁ
 
+
 def bloco_inspecao_interna(pa_num):
     st.subheader(f"📷 11.3 Itens com evidências fotográficas - PÁ {pa_num}")
     imagens_obs = {}
@@ -888,15 +889,23 @@ def bloco_inspecao_interna(pa_num):
     )
     for topico in topicos_selecionados:
         st.markdown(f"### 📸 {topico} (PÁ {pa_num})")
+
         fotos = st.file_uploader(
             f"Envie até 2 fotos para '{topico}' (PÁ {pa_num})",
             type=["jpg", "jpeg", "png"],
             accept_multiple_files=True,
-            key=f"fotos_interna_pa{pa_num}_{topico}"
+            key=limpar_key(f"fotos_interna_pa{pa_num}_{topico}")
         )
-        obs = st.text_area(f"Observações sobre '{topico}' (PÁ {pa_num})", key=f"obs_interna_pa{pa_num}_{topico}")
+
+        obs = st.text_area(
+            f"Observações sobre '{topico}' (PÁ {pa_num})",
+            key=limpar_key(f"obs_interna_pa{pa_num}_{topico}")
+        )
+
         imagens_obs[topico] = (fotos, obs)
+
     return imagens_obs
+
 
 #------------------------ Inspeção Interna - PÁ 1 ----------------------------
 # PDF - Tabelas + Fotos
