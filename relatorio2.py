@@ -6,6 +6,12 @@ from PIL import Image   # Biblioteca para manipulação de imagens
 import base64 # Biblioteca para codificação e decodificação de dados binários
 from io import BytesIO # Biblioteca para manipulação de fluxos de bytes
 import requests
+import unicodedata
+
+def limpar_key(texto):
+    texto = unicodedata.normalize("NFKD", texto).encode("ASCII", "ignore").decode("utf-8")
+    return texto.replace(" ", "_").replace(".", "_").replace("-", "_")
+
 
 # -------------------- Baixar imagens do GitHub (se não existirem localmente) --------------------
 
@@ -735,6 +741,7 @@ for loc in localizacoes:
 # 📸 INSPEÇÃO EXTERNA - NOVO MODELO
 
 # --- Inspeção Externa - PÁ 1 ---
+
 st.subheader("🔍 10.1 Inspeção Externa - PÁ 1")
 
 topicos_externa = [
@@ -757,14 +764,23 @@ imagens_obs_externa_pa1 = {}
 
 for topico in topicos_selecionados_pa1:
     st.markdown(f"### 📸 {topico} (PÁ 1)")
-    fotos = st.file_uploader(f"Envie até 2 fotos para '{topico}' (PÁ 1)", 
-                             type=["jpg", "jpeg", "png"], 
-                             accept_multiple_files=True, 
-                             key=f"fotos_externa_pa1_{topico}")
-    obs = st.text_area(f"Observações sobre '{topico}' (PÁ 1)", key=f"obs_externa_pa1_{topico}")
+    
+    key_foto = limpar_key(f"fotos_externa_pa1_{topico}")
+    fotos = st.file_uploader(
+        f"Envie até 2 fotos para '{topico}' (PÁ 1)", 
+        type=["jpg", "jpeg", "png"], 
+        accept_multiple_files=True, 
+        key=key_foto
+    )
+
+    key_obs = limpar_key(f"obs_externa_pa1_{topico}")
+    obs = st.text_area(f"Observações sobre '{topico}' (PÁ 1)", key=key_obs)
+
     imagens_obs_externa_pa1[topico] = (fotos, obs)
 
+
 # --- Inspeção Externa - PÁ 2 ---
+
 st.subheader("🔍 10.2 Inspeção Externa - PÁ 2")
 
 topicos_selecionados_pa2 = st.multiselect(
@@ -777,14 +793,22 @@ imagens_obs_externa_pa2 = {}
 
 for topico in topicos_selecionados_pa2:
     st.markdown(f"### 📸 {topico} (PÁ 2)")
-    fotos = st.file_uploader(f"Envie até 2 fotos para '{topico}' (PÁ 2)", 
-                             type=["jpg", "jpeg", "png"], 
-                             accept_multiple_files=True, 
-                             key=f"fotos_externa_pa2_{topico}")
-    obs = st.text_area(f"Observações sobre '{topico}' (PÁ 2)", key=f"obs_externa_pa2_{topico}")
+
+    key_foto = limpar_key(f"fotos_externa_pa2_{topico}")
+    fotos = st.file_uploader(
+        f"Envie até 2 fotos para '{topico}' (PÁ 2)", 
+        type=["jpg", "jpeg", "png"], 
+        accept_multiple_files=True, 
+        key=key_foto
+    )
+
+    key_obs = limpar_key(f"obs_externa_pa2_{topico}")
+    obs = st.text_area(f"Observações sobre '{topico}' (PÁ 2)", key=key_obs)
+
     imagens_obs_externa_pa2[topico] = (fotos, obs)
 
-# --- Inspeção Externa - PÁ 3 ---
+# ------------------- pa 3 ------------------
+
 st.subheader("🔍 10.3 Inspeção Externa - PÁ 3")
 
 topicos_selecionados_pa3 = st.multiselect(
@@ -797,11 +821,18 @@ imagens_obs_externa_pa3 = {}
 
 for topico in topicos_selecionados_pa3:
     st.markdown(f"### 📸 {topico} (PÁ 3)")
-    fotos = st.file_uploader(f"Envie até 2 fotos para '{topico}' (PÁ 3)", 
-                             type=["jpg", "jpeg", "png"], 
-                             accept_multiple_files=True, 
-                             key=f"fotos_externa_pa3_{topico}")
-    obs = st.text_area(f"Observações sobre '{topico}' (PÁ 3)", key=f"obs_externa_pa3_{topico}")
+
+    key_foto = limpar_key(f"fotos_externa_pa3_{topico}")
+    fotos = st.file_uploader(
+        f"Envie até 2 fotos para '{topico}' (PÁ 3)", 
+        type=["jpg", "jpeg", "png"], 
+        accept_multiple_files=True, 
+        key=key_foto
+    )
+
+    key_obs = limpar_key(f"obs_externa_pa3_{topico}")
+    obs = st.text_area(f"Observações sobre '{topico}' (PÁ 3)", key=key_obs)
+
     imagens_obs_externa_pa3[topico] = (fotos, obs)
 
           
