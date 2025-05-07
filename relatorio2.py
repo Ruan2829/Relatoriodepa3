@@ -607,8 +607,8 @@ with st.container():
     
     imagem_maquina = st.file_uploader(
         "Selecione a imagem (PNG ou JPG)", 
-        type=["jpg", "jpeg", "png"]
-    )
+        type=["jpg", "jpeg", "png", "JPG", "JPEG", "PNG"]
+            
 
     imagem_maquina_path = None
     if imagem_maquina:
@@ -632,7 +632,7 @@ for i in range(1, 4):  # Loop de 1 a 3 para as pás
         st.markdown(f"### 📌 PÁ {i}")
         fotos = st.file_uploader(
             f"Envie até 2 fotos para PÁ {i}",  # ✅ Corrigido: texto fixo com número da pá
-            type=["jpg", "jpeg", "png"],
+            type=["jpg", "jpeg", "png", "JPG", "JPEG", "PNG"],
             accept_multiple_files=True,
             key=f"fotos_pa_{i}"  # Também melhor usar chave estável
         )
@@ -772,7 +772,7 @@ for topico in topicos_selecionados_pa1:
     key_foto = limpar_key(f"fotos_externa_pa1_{topico}")
     fotos = st.file_uploader(
         f"Envie até 2 fotos para '{topico}' (PÁ 1)", 
-        type=["jpg", "jpeg", "png"], 
+        type=["jpg", "jpeg", "png", "JPG", "JPEG", "PNG"], 
         accept_multiple_files=True, 
         key=key_foto
     )
@@ -801,7 +801,7 @@ for topico in topicos_selecionados_pa2:
     key_foto = limpar_key(f"fotos_externa_pa2_{topico}")
     fotos = st.file_uploader(
         f"Envie até 2 fotos para '{topico}' (PÁ 2)", 
-        type=["jpg", "jpeg", "png"], 
+        type=["jpg", "jpeg", "png", "JPG", "JPEG", "PNG"], 
         accept_multiple_files=True, 
         key=key_foto
     )
@@ -829,7 +829,7 @@ for topico in topicos_selecionados_pa3:
     key_foto = limpar_key(f"fotos_externa_pa3_{topico}")
     fotos = st.file_uploader(
         f"Envie até 2 fotos para '{topico}' (PÁ 3)", 
-        type=["jpg", "jpeg", "png"], 
+        type=["jpg", "jpeg", "png", "JPG", "JPEG", "PNG"], 
         accept_multiple_files=True, 
         key=key_foto
     )
@@ -900,7 +900,7 @@ def bloco_inspecao_interna(pa_num):
         key_foto = limpar_key(f"fotos_interna_pa{pa_num}_{topico}")
         fotos = st.file_uploader(
             f"Envie até 2 fotos para '{topico}' (PÁ {pa_num})",
-            type=["jpg", "jpeg", "png"],
+            type=["jpg", "jpeg", "png", "JPG", "JPEG", "PNG"],
             accept_multiple_files=True,
             key=key_foto
         )
