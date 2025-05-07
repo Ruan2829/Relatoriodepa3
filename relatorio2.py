@@ -7,6 +7,7 @@ import base64 # Biblioteca para codificação e decodificação de dados binári
 from io import BytesIO # Biblioteca para manipulação de fluxos de bytes
 import requests
 import unicodedata
+import uuid  # no topo do seu script
 
 def limpar_key(texto):
     texto = unicodedata.normalize("NFKD", texto).encode("ASCII", "ignore").decode("utf-8")
@@ -638,7 +639,9 @@ for i in range(1, 4):  # Loop de 1 a 3 para as pás
         caminhos = []  # Lista para armazenar os caminhos das fotos
         for j, foto in enumerate(fotos[:2]):  # Limita a 2 fotos
             extensao = foto.type.split("/")[-1]  # Detecta a extensão correta
-            caminho = f"foto_pa_{i}_{j}.{extensao}"  # Cria o caminho do arquivo
+            nome_limpo = limpar_key(f"foto_pa_{i}_{j}")
+            caminho = f"{nome_limpo}.{extensao}"
+
             with open(caminho, "wb") as f:  # Abre o arquivo para escrita
                 f.write(foto.read())  # Salva o arquivo
             caminhos.append(caminho)  # Adiciona o caminho à lista
@@ -947,20 +950,22 @@ def inserir_topicos_fotos(pdf, imagens_obs, pa_num):
             x_inicial = 10  # Começar um pouco da margem
             y_inicial = pdf.get_y()
 
+
             for i, foto in enumerate(fotos[:2]):
                 if foto:
                     extensao = foto.type.split("/")[-1]
-                    caminho_temp = f"temp_interna_pa{pa_num}_{i}.{extensao}".replace(" ", "_")
-                    with open(caminho_temp, "wb") as f:
+                    nome_unico = f"foto_pa{pa_num}_{uuid.uuid4().hex[:8]}.{extensao}"
+                    with open(nome_unico, "wb") as f:
                         f.write(foto.read())
+    
 
                     # Posiciona corretamente a imagem lado a lado
                     x = x_inicial + i * (largura_img + espacamento)
                     pdf.set_xy(x, y_inicial)
                     pdf.rect(x, y_inicial, largura_img, altura_img)
-                    pdf.image(caminho_temp, x + 2, y_inicial + 2, w=largura_img - 4, h=altura_img - 4)
+                    pdf.image(nome_unico, x + 2, y_inicial + 2, w=largura_img - 4, h=altura_img - 4)
+                    os.remove(nome_unico)
 
-                    os.remove(caminho_temp)
 
             pdf.set_y(y_inicial + altura_img + 5)  # Move para baixo depois das imagens
 
