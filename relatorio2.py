@@ -10,7 +10,9 @@ import unicodedata
 import uuid  # no topo do seu script
 
 def limpar_key(texto):
-    texto = unicodedata.normalize("NFKD", texto).encode("ASCII", "ignore").decode("utf-8")fotos = st.file_uploader(
+    texto = unicodedata.normalize("NFKD", texto).encode("ASCII", "ignore").decode("utf-8")
+    return texto.replace(" ", "_").replace(".", "_").replace("-", "_")
+
     fotos = st.file_uploader(
         f"Envie até 2 fotos para '{topico}' (PÁ {pa_num})",
         type=["jpg", "jpeg", "png"],
