@@ -635,29 +635,27 @@ st.subheader("📷 9. Especificação e Identificação das Pás")
 
 imagens_pás = {}
 
-# Loop para as 3 pás
 for i in range(1, 4):  # Loop de 1 a 3 para as pás
     with st.container():  # Cria um container para cada pá
-        st.markdown(f"### 📌 PÁ {i}")  # Título para cada pá
+        st.markdown(f"### 📌 PÁ {i}")
         fotos = st.file_uploader(
-            f"Envie até 2 fotos para '{topico}' (PÁ {pa_num})",
+            f"Envie até 2 fotos para PÁ {i}",  # ✅ Corrigido: texto fixo com número da pá
             type=["jpg", "jpeg", "png"],
             accept_multiple_files=True,
-            key=str(uuid.uuid4())  # Garante que não colida com nomes inválidos
+            key=f"fotos_pa_{i}"  # Também melhor usar chave estável
         )
 
-
-        caminhos = []  # Lista para armazenar os caminhos das fotos
-        for j, foto in enumerate(fotos[:2]):  # Limita a 2 fotos
-            extensao = foto.type.split("/")[-1]  # Detecta a extensão correta
+        caminhos = []
+        for j, foto in enumerate(fotos[:2]):
+            extensao = foto.type.split("/")[-1]
             nome_limpo = limpar_key(f"foto_pa_{i}_{j}")
             caminho = f"{nome_limpo}.{extensao}"
+            with open(caminho, "wb") as f:
+                f.write(foto.read())
+            caminhos.append(caminho)
 
-            with open(caminho, "wb") as f:  # Abre o arquivo para escrita
-                f.write(foto.read())  # Salva o arquivo
-            caminhos.append(caminho)  # Adiciona o caminho à lista
+        imagens_pás[f"PÁ {i}"] = caminhos
 
-        imagens_pás[f"PÁ {i}"] = caminhos  # Guarda os caminhos por pá
 
     
 
