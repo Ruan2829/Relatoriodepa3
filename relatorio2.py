@@ -629,12 +629,13 @@ imagens_pás = {}
 for i in range(1, 4):  # Loop de 1 a 3 para as pás
     with st.container():  # Cria um container para cada pá
         st.markdown(f"### 📌 PÁ {i}")  # Título para cada pá
-        fotos = st.file_uploader(  # Carrega as fotos da pá
-            f"Envie até 2 fotos para a PÁ {i}",  # Título do uploader
-            type=["jpg", "jpeg", "png"],  # Tipo de arquivo aceito
-            accept_multiple_files=True,  # Aceita múltiplos arquivos
-            key=f"foto_pa_{i}"  # Chave única para cada pá
+        fotos = st.file_uploader(
+            f"Envie até 2 fotos para '{topico}' (PÁ {pa_num})",
+            type=["jpg", "jpeg", "png"],
+            accept_multiple_files=True,
+            key=str(uuid.uuid4())  # Garante que não colida com nomes inválidos
         )
+
 
         caminhos = []  # Lista para armazenar os caminhos das fotos
         for j, foto in enumerate(fotos[:2]):  # Limita a 2 fotos
