@@ -1015,8 +1015,11 @@ if st.button("📄 Gerar Relatório em PDF"):
 
     # ----------------- Inspeção Externa -----------------
     pdf.add_page()
+    pdf.set_font("Arial", "B", 12)
+    pdf.cell(0, 10, "10. Inspeção Externa", ln=True)
+    pdf.ln(2)
     gerar_tabela_defeitos(pdf, "10.1 Classificação de defeitos evidenciados na área externa da pá 1", tabela_externa_pa1)
-    inserir_topicos_fotos(pdf, imagens_obs_externa_pa1, 1)
+    inserir_topicos_fotos(pdf, imagens_obs_externa_pa1, 1)  
 
     pdf.add_page()
     gerar_tabela_defeitos(pdf, "10.2 Classificação de defeitos evidenciados na área externa da pá 2", tabela_externa_pa2)
@@ -1028,6 +1031,9 @@ if st.button("📄 Gerar Relatório em PDF"):
 
     # ----------------- Inspeção Interna -----------------
     pdf.add_page()
+    pdf.set_font("Arial", "B", 12)
+    pdf.cell(0, 10, "11. Inspeção Interna", ln=True)
+    pdf.ln(2)
     gerar_tabela_defeitos(pdf, "11.2 Classificação de defeitos evidenciados na área interna da pá 1", tabela_defeitos_pa1)
     inserir_topicos_fotos(pdf, imagens_obs_interna_pa1, 1)
 
