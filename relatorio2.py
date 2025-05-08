@@ -963,7 +963,7 @@ def inserir_topicos_fotos(pdf, imagens_obs, pa_num):
 
             pdf.set_font("Arial", "I", 11)
             pdf.multi_cell(0, 8, f"Observações: {obs or '-'}")
-            pdf.ln(10)
+            pdf.ln(30)
 
 
 
