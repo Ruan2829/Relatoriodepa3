@@ -104,7 +104,7 @@ class PDF(FPDF):
     def footer(self):
         # Adiciona imagem no canto inferior esquerdo
         if os.path.exists("assets/wind_turbine_draw.png"):
-            self.image("assets/wind_turbine_draw.png", x=10, y=260, w=40)
+            self.image("assets/wind_turbine_draw.png", x=10, y=270, w=40)
 
   # Ajuste 'x', 'y' e 'w' conforme o necessário
 
